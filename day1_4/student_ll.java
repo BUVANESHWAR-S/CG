@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 public class student_ll {
 
     private Node head;
@@ -54,11 +56,83 @@ public class student_ll {
         size++;
         
     }
+    public void delete_first(){
+        head = head.next;
+        if(head == null){
+            tail = head;
+        }
+        size--;
+    }
+
+    public void delete_last(){
+        if(size <= 1){
+            delete_first();
+            return;
+        }
+        tail = get(size-2);
+        tail.next = null;
+        size--;
+    }
+    public void delete(int index){
+        if(index>= size){
+            throw new IndexOutOfBoundsException("Index out of range");
+        }
+        if(index == 0){
+            //delete_first();
+            delete_first();
+            return;
+        }
+        else if(index == size-1){
+           // delete_last();
+            delete_last();
+            return;
+        }
+        Node del_Node = get(index-1);
+        del_Node.next = del_Node.next.next;
+        size--;
+    }
+    public void delete_Roll_no(int Roll_num){
+        int index = find(Roll_num);
+        delete(index);
+    }
+    public Node get(int index){
+        if(index < 0 || index >= size){
+            throw new IndexOutOfBoundsException("Invalid index: " + index);
+        }
+        if(index == 0){
+            return head;
+        }
+        Node temp = head;
+        for(int i = 0; i<index; i++){
+            temp = temp.next;
+        }
+        return temp;
+    }
+    public int find(int Roll_num){
+        Node node = head;
+        int index = 0;
+        while(node != null){
+            if(node.Roll_num == Roll_num){
+                return index;
+            }
+            node = node.next;
+            index++;
+        }
+        throw new NoSuchElementException(Roll_num + " is not found");
+    }
+    public void update(int Roll_num, char new_grade){
+        int index = find(Roll_num);
+        Node temp = head;
+        for(int i = 0; i<index; i++){
+            temp = temp.next;
+        }
+        temp.grade = new_grade;
+    }
 
     public void display(){
         Node temp = head;
         while (temp != null) {
-            System.out.println(temp.Name + " "+ temp.Roll_num +" "+ temp.age);
+            System.out.println(temp.Name + " "+ temp.Roll_num +" "+ temp.age +" "+ temp.grade);
             temp = temp.next;
         }
         System.out.println("done");

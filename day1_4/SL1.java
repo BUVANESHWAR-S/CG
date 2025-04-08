@@ -6,9 +6,13 @@ class SL1 {
         std_list.insert_first("Dina", 1234, 20, 'O');
         std_list.insert_first("Jawa", 1235, 21, 'A');
         std_list.insert("Mukkesh", 1236, 20, 'A', 2);
-
-
         std_list.display();
+        std_list.delete_Roll_no(1233);
+        std_list.update(1235, 'O');
+        std_list.display();
+
+
+        //std_list.display();
     }
     
 }
