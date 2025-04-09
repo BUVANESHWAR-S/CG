@@ -59,7 +59,7 @@ public class student_ll {
     public void delete_first(){
         head = head.next;
         if(head == null){
-            tail = head;
+            tail = null;
         }
         size--;
     }

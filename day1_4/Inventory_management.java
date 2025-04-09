@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 public class Inventory_management{
     private Node head, tail;
     private int size;
@@ -52,6 +54,108 @@ public class Inventory_management{
 
     }
 
+    public void delete_first(){
+        head = head.next;
+        if(head == null){
+            tail = null;
+        }
+        size--;
+    }
+
+    public void delete(int index){
+        if(index >= size || index < 0){
+            throw new IndexOutOfBoundsException("Index out of range");
+        }
+        if(index == 0){
+            delete_first();
+            return;
+        }
+        if(index == size-1){
+            delete_last();
+            return;
+        }
+        Node del_node = get(index-1);
+        del_node.next = del_node.next.next;
+        size--;
+    }
+
+    public void delete_last(){
+        if(size <= 1){
+            delete_first();
+            return;
+        }
+        tail = get(size-2);
+        tail.next = null;
+        size--;
+    }
+
+    public void delete_val(int id){
+        int index = find(id);
+        delete(index);
+    }
+    
+    public void delete_val(String item_name){
+        int index = find(item_name);
+        delete(index);
+    }
+
+    public void update(int quantity, int item_id){
+        int index = find(item_id);
+        Node temp = head;
+
+        for(int i =0; i<index; i++){
+            temp = temp.next;
+        }
+        temp.quantity = quantity;
+    }
+
+    public Node get(int index){
+        if(index >= size || index < 0){
+            throw new IndexOutOfBoundsException("Index out of range");
+        }
+        Node temp = head;
+        for(int i =0; i<index; i++){
+            temp = temp.next;
+        }
+        return temp;
+    }
+
+    public int find(int id){
+        Node temp = head;
+        int index = 0;
+        while(temp != null){
+            if(temp.item_id == id){
+                return index;
+            }
+            temp = temp.next;
+            index++;
+        }
+        throw new NoSuchElementException(id + " is not found");
+    }
+
+    public int find(String item_name){
+        Node temp = head;
+        int index = 0;
+        while(temp != null){
+            if(temp.item_name.equals(item_name)){
+                return index;
+            }
+            temp = temp.next;
+            index++;
+        }
+        throw new NoSuchElementException(item_name + " is not found");
+    }
+
+    public void display_price(){
+        Node temp = head;
+        int total = 0;
+        while (temp != null) {
+            total += temp.price * temp.quantity;
+            temp = temp.next;
+        }
+        System.out.println(total);
+    }
+    
     public void display(){
         Node temp = head;
         while(temp != null){

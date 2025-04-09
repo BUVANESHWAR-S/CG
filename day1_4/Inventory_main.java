@@ -7,8 +7,12 @@ public class Inventory_main {
         list.insert_first("biscuit", 10, 30, 3);
         list.insert_first("pen", 1, 10, 10);
         list.insert("mac", 1232, 100000, 1, 2);
+        list.display();
+
+        list.delete(2);
 
         list.display();
+
 
     }
 }
