@@ -12,6 +12,13 @@ public class Inventory_main {
         list.delete(2);
 
         list.display();
+        list.sortByName(true);
+        System.out.println("Sorted by Name (Ascending):");
+        list.display();
+
+        list.sortByPrice(false);
+        System.out.println("Sorted by Price (Descending):");
+        list.display();
 
 
     }

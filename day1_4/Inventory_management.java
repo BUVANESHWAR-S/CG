@@ -165,6 +165,93 @@ public class Inventory_management{
         System.out.println("|_> END");
 
     }
+    public void sortByName(boolean ascending) {
+        head = mergeSortByName(head, ascending);
+        updateTail();
+    }
+    
+    private Node mergeSortByName(Node head, boolean ascending) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        Node mid = getMiddle(head);
+        Node midNext = mid.next;
+        mid.next = null;
+    
+        Node left = mergeSortByName(head, ascending);
+        Node right = mergeSortByName(midNext, ascending);
+    
+        return mergeByName(left, right, ascending);
+    }
+    
+    private Node mergeByName(Node a, Node b, boolean ascending) {
+        if (a == null) return b;
+        if (b == null) return a;
+    
+        int comparison = a.item_name.compareToIgnoreCase(b.item_name);
+        if ((ascending && comparison <= 0) || (!ascending && comparison > 0)) {
+            a.next = mergeByName(a.next, b, ascending);
+            return a;
+        } else {
+            b.next = mergeByName(a, b.next, ascending);
+            return b;
+        }
+    }
+    
+    public void sortByPrice(boolean ascending) {
+        head = mergeSortByPrice(head, ascending);
+        updateTail();
+    }
+    
+    private Node mergeSortByPrice(Node head, boolean ascending) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        Node mid = getMiddle(head);
+        Node midNext = mid.next;
+        mid.next = null;
+    
+        Node left = mergeSortByPrice(head, ascending);
+        Node right = mergeSortByPrice(midNext, ascending);
+    
+        return mergeByPrice(left, right, ascending);
+    }
+    
+    private Node mergeByPrice(Node a, Node b, boolean ascending) {
+        if (a == null) return b;
+        if (b == null) return a;
+    
+        if ((ascending && a.price <= b.price) || (!ascending && a.price > b.price)) {
+            a.next = mergeByPrice(a.next, b, ascending);
+            return a;
+        } else {
+            b.next = mergeByPrice(a, b.next, ascending);
+            return b;
+        }
+    }
+    
+    private Node getMiddle(Node head) {
+        if (head == null) return head;
+        Node slow = head, fast = head.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+    
+    private void updateTail() {
+        if (head == null) {
+            tail = null;
+            return;
+        }
+        Node temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        tail = temp;
+    }
+    
 
     private class Node{
         private Node next;
