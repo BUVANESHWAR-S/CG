@@ -1,6 +1,5 @@
 import java.util.Stack;
 
-import javax.print.DocFlavor.INPUT_STREAM;
 
 public class stack_srt_rec {
     private Stack<Integer> st;
