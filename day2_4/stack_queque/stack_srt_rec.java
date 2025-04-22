@@ -44,4 +44,7 @@ public class stack_srt_rec {
         obj1.sort(stack);
         obj1.display(stack);
     }
+    String s = "feg";
+    char ch = s.ch
+    
 }
